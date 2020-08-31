@@ -1,0 +1,167 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+COMBAT REMASTERED 2019.2
+</h1>
+
+<p><i>
+Enhances the built in combat system giving your players the ability to use any weapon type. It adds weapon types to items so you can control 
+how they work from there. It utilizes the original animator for ease of use instead of creating multiple animators.</i>
+</p>
+<hr>
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><font color="red"><b>[Click]</b></font></font> Player.cs (ca. line 1710)</summary>
+<p>
+EXCHANGE this code block:
+<pre><code>
+    // equipment ///////////////////////////////////////////////////////////////
+    private void OnEquipmentChanged(SyncListItemSlot.Operation op, int index, ItemSlot slot)
+    {
+        // update the model
+        RefreshLocation(index);
+
+        // addon system hooks
+        Utils.InvokeMany(typeof(Player), this, "OnEquipmentChanged_"); // Fhiz Core Change
+    }
+</code></pre>
+...COMPLETELY with the code block below:
+<pre><code>
+    // equipment ///////////////////////////////////////////////////////////////
+    private void OnEquipmentChanged(SyncListItemSlot.Operation op, int index, ItemSlot slot)
+    {
+<font color="red">
+#if _FHIZCURSEDEQUIPMENT
+        if (slot != null && slot.item != null)
+            if (((EquipmentItem)slot.item.data).CanUnequipClick(this, (EquipmentItem)slot.item.data))
+                combatRemastered.AutoRemoveEquipment(slot);
+#else
+        combatRemastered.AutoRemoveEquipment(slot);
+#endif
+</font>
+        // addon system hooks
+        Utils.InvokeMany(typeof(Player), this, "OnEquipmentChanged_"); // Fhiz Core Change
+</code></pre>
+</p>
+</details>
+
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+
+<li>[Required] Add the following bools to your animator: UNARMED, SLASH1H, PIERCE1H, BLUDGEON1H, SLASH2H, PIERCE2H, BLUDGEON2H, RANGEDTHROWN, RANGEDBOW, RANGEDGUN, SHIELD, DUAL</li>
+<li>[Required] Add a new animation state for each bool created, this will be there default auto attack.</li>
+<li>[Required] For each new animation state create a transition to each with CASTING, the weapon type it is (Example: UNARMED etc...), then the skill you want used (Example: Normal Attack (Warrior) etc...)</li>
+<li>[Required] Add all items from <b>Scripts [Add to Player]</b> to your player prefab.</li>
+<li>[Required] Attach all default auto attack skills you want to <b>UCE_CombatRemasted</b> under your player prefab. Note they must be in order like this:  UNARMED, SLASH1H, PIERCE1H, BLUDGEON1H, SLASH2H, PIERCE2H, BLUDGEON2H, RANGEDTHROWN, RANGEDBOW, RANGEDGUN, SHIELD, DUAL</li>
+<li>[Required] On your player prefab under default skills make sure all of the default auto attack skills you just set are in the same order there, starting from the first spot. All other skills need to be after those.</li>
+<li>[Required] Change your equipment slot Weapon to MainHand and Shield to OffHand. Make sure you mark your items accordingly.</li>
+
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>None</i></p>
+
+<h3>Additional Information</h3>
+<ul>
+<li>ATTENTION: If you're using UMA Addon from Sehlor, you will need to put the <b>Player.cs</b> change in the UMA Player script. Just put the combatRemastered.AutoRemoveEquipment(slot); right above RefreshLocation(index); in there.</li>
+</ul>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First Release</li>
+<li>2019.1: Fixed disappearing 1 hand weapon when equipping a bow and disappearing bow when equipping a 1 hand weapon. Added cursed equipment functionality.</li>
+<li>2019.2: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

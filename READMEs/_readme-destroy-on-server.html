@@ -1,0 +1,165 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+DESTROY ON SERVER 2019.2
+</h1>
+
+<p><i>
+This script will increase your game servers performance. As several objects (especially
+Name Overlays) are not required server-side, it is a good idea to destroy them.
+<br><br>
+FreeDestroyOnServer will destroy the NameOverlay, QuestIndicator and GuildOverlay
+when the object is instanciated. It will only do so on a Server, not on a Client! As these
+kinds of objects use up memory and processing power - especially when present in massive
+amounts - it is better to destroy them.
+<br><br>
+Even when you run your server in headless (no-graphics) mode, those objects will be
+created and just "sit around" soaking up RAM and CPU.
+</i>
+</p>
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+
+<ol>
+<li>[Required]  In your projects, PREFABS -> ENTITIES folder.</li>
+<li>[Required]  Select any Entity, expand it and find ...OverlayPosition as well as MinimapMarker.</li>
+<li>[Required]  In this AddOns SCRIPTS folder.</li>
+<li>[Required]  Attach "UCE_DestroyOnServer" component to the selected Entities ...OverlayPosition.</li>
+<li>[Required]  Continue doing so for every object you want to destroy server-side.</li>
+<li>[Required] The best practice is to add this script to all of your Monster, NPC and Player prefabs as this will update all your objects in the scene as well.</li>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p>None</p>
+
+<h3>Additional Information</h3>
+
+<p><i>
+
+Select any Entity in your game, expand it and attach this script to any OverlayPosition
+that you see.  This compromises (by default):
+<br><br>
+* For Monsters:<br>
+	- NameOverlayPosition<br>
+	- StunnedOverlayPosition<br>
+	- MinimapMarker<br>
+* For NPCs:<br>
+	- NameOverlayPosition<br>
+	- QuestIndicatorPosition<br>
+	- StunnedOverlayPosition<br>
+	- MinimapMarker<br>
+* For Players:<br>
+	- NameOverlayPosition<br>
+	- GuildOverlayPosition<br>
+	- StunnedOverlayPosition<br>
+	- MinimapMarker<br>
+* For Pets:<br>
+	- NameOverlayPosition<br>
+	- OwnerOverlayPosition<br>
+	- StunnedOverlayPosition<br>
+	- MinimapMarker<br>
+</i>
+</p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: Changed from Entity to NetworkBehaviour</li>
+<li>2019.1: Bugfix</li>
+<li>2019.2: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

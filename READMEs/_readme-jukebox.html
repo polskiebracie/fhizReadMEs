@@ -1,0 +1,164 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+JUKEBOX 2019.1
+</h1>
+
+<p>
+<i>
+This AddOn allows you to add an any amount of background music to your game. You can
+also specify where and when the music shall play.
+<ul>
+<li>Add a menu music to your game that plays while not logged in (= in the char creation/selection screen / this only works in a compiled client).</li>
+<li>Add a default music that plays while logged in when no other music plays.</li>
+<li>Add a battle music to your game that plays while engaged in combat.</li>
+<li>Add any amount of music areas to your game that change the current song when entering and
+revert back to the default song when leaving.</li>
+<li>Music areas provide several options like loop, if they take precedence over battle music
+or not and so on.</li>
+<li>When a music area takes precedence, the music will change even if the battle music
+currently plays. This is good for boss areas where you want a specific song to play all
+the time.</li>
+</ul>
+</i></p>
+
+<center>
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/jukebox/jukebox-1.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/jukebox/jukebox-2.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/jukebox/jukebox-3.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+
+<li>[Required] In this AddOns PREFABS folder.</li>
+<li>[Required] Locate "UCE_Tmpl_Jukebox" scriptable object and edit however you like.</li>
+<li>[Required] Locate "NetworkManager" in your scene and assign "UCE_Tmpl_Jukebox" to it.</li>
+<li>[Optional] Select the "UCE_Area_Jukebox" prefab from this AddOns prefab folder and drag it somewhere
+into your scene. Adjust its settings in the inspector.</li>
+<li>[Optional] Try to walk into and out of such a music area when playing the game.</li>
+<li>[Optional] Try to attack or get attacked by an enemy.</li>
+<li>[Optional] Try to enter/exit a music area right after attacking or being attacked.</li>
+<li>[Optional] Set the "priority" checkmark to the JukeboxArea, play the game, get attacked and
+walk into the JukeboxArea immediately afterwards again.</li>
+
+</ol>
+</p>
+
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+<ul>
+<li>Please note that the menu music is only functional in a compiled client.</li>
+<li>A option menu to adjust music & sound volume will be added later.</li>
+<li>Make sure that you only have one "SimpleJukeBox" Scriptable Object in your project
+(although multiple ones won't cause any errors). Should you delete this scriptable
+object by accident, you can always create a new one via right-mouse-click and "Create".</li>
+<li>All audio used is freely available as open-source at http://www.opengameart.org</li>
+</ul>
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.7: Major Update</li>
+<li>1.8: Fixed two bugs when music did not revert correctly</li>
+<li>2019.0: Fixed a few bugs in dedicated environment</li>
+<li>2019.1: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

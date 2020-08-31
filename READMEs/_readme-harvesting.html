@@ -1,0 +1,180 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+HARVESTING 2019.10
+</h1>
+
+<p>
+<i>
+This AddOn will add both a Profession as well a Harvesting system to your game. You can now place ResourceNodes in your scene that your players can harvest in order to
+gain valueable items.  You can create different professions, that allow to
+harvest various items from resource nodes on the map. Each player can have multiple
+professions, that can be learned from items. Each profession has a certain level that
+allow the player to collect items from various Resource Nodes.
+</i>
+</p>
+
+<center>
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/harvesting/harvesting-1.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/harvesting/harvesting-2.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/harvesting/harvesting-3.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/harvesting/harvesting-4.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/harvesting/harvesting-5.jpg">
+</center>
+
+<hr>
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZHARVESTING</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+
+<p>
+<ol>
+
+<li>[Required] Add everything in "Prefabs [Add to Canvas]" to your <b>Canvas</b> via drag-n-drop.</li>
+<li>[Required] Make sure <b>not</b> to put them into another object.</li>
+<li>[Required] Move everything from this AddOns "Resources > Items" folder into your projects main <b>Resources > Items</b> folder.</li>
+<li>[Required] Do <b>not</b> keep duplicate objects of the same name and use only one <b>Resources</b> folder in your project.</li>
+<li>[Required] Add the "Resources > UCE Professions" folder to your projects main <b>Resources</b> via drag-n-drop.</li>
+<li>[Required] Do <b>not</b> keep duplicate objects of the same name and use only one <b>Resources</b> folder in your project.</li>
+<li>[Required] Now select each one of your player prefabs, one after another and do the following steps:</li>
+<li>[Required] A. Open the <b>Animator</b> and copy-paste the basic attack animation state and rename it.</li>
+<li>[Required] B. Add another Parameter to your parameter list on the left side of the Animator window and call it HARVESTING, make a transition from any state to your freshly created animation state.</li>
+<li>[Required] Back to this AddOns "Prefabs [Add to Scene]" folder, add the ResourceNode to your scene via drag-n-drop.</li>
+<li>[Optional] Add a <b>Miners Handbook</b> as starting item, to a NPC shop or loot drop. Acquire that item in order to test.</li>
+<li>[Optional] Go near a Resource Node and click it to start mining. After its finished, when you are successful, click it again to collect the harvested resources.</li>
+<li>[Optional] Edit the Resource Node for many additional options.</li>
+
+</ol>
+</p>
+
+<h3>Additional Information</h3>
+
+<ul>
+<li>When editing the Resource Node, you will have to set a <b>Required Profession</b> on it's interaction requirements, otherwise it won't work.</li>
+<li>Set <b>Required Profession</b> to one of your Harvest Professions (Miner, Botanist by default) and set the <b>Min Profession Level</b> to make the Node only accessible with a Profession of at least that level.</li>
+<li>Set <b>Increase Interaction Range</b> to allow accessing the Resource Node from further away. This might be useful if you want to place a fish inside the middle of a pond.</li>
+<li>Set <b>Total Resources</b> to any value higher than 0, to limit the available Resources. After being depleted, the Resource Node disappears and respawns again a bit later.</li>
+<li>You can set any number of levels for Professions, the list starts with level 2. So the first list entry is the amount of harvesting Exp required to advance to profession level 2.</li>
+</ul>
+
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ioSkZ2COwag" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.4: Major Update</li>
+<li>1.5: Harvest window now shows immediately on success, Profession exp now displayed correctly</li>
+<li>1.6: Bugfix</li>
+<li>1.7: Namechanges, Bugfixes</li>
+<li>1.8: Updated to ummorpg 1.139</li>
+<li>1.9: Updated to ummorpg 1.140</li>
+<li>2.0: Updated to ummorpg 1.152</li>
+<li>2.1: Fixed a bug where a resource node was out of reach and couldnt be collected</li>
+<li>2019.0: Added new message type when the resource node is out of reach</li>
+<li>2019.1: Added additional check for Quest addon</li>
+<li>2019.2: Updated to uMMORPG 1.155</li>
+<li>2019.3: Added mySQL support</li>
+<li>2019.4: Fixed popup message, fixed prefab, added deduction amount to profession item</li>
+<li>2019.5: Fixed glitched animation when walking away while harvesting</li>
+<li>2019.6: updated to uMMORPG 1159, bugfix</li>
+<li>2019.7: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+<li>2019.8: Total rewrite, greatly enhanced performance and usability</li>
+<li>2019.9: Added crit chance, tool break chance, critical success and boosters</li>
+<li>2019.10: Added variable resources amount on respawn</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

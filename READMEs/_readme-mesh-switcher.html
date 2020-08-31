@@ -1,0 +1,211 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+MESH SWITCHER 2019.3
+</h1>
+
+<p>
+<i>Allows you to turn meshes on a player on/off by using items (ideally equipment). Also allows for dynamic exchange of Materials on meshes.</i>
+</p>
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><b>[Click]</b></font>Player.cs (ca. line 333)</summary>
+<p>
+EXCHANGE this code block:
+<pre><code>
+public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        // setup synclist callbacks on client. no need to update and show and
+        // animate equipment on server
+        equipment.Callback += OnEquipmentChanged;
+		
+        // refresh all locations once (on synclist changed won't be called
+        // for initial lists)
+        // -> needs to happen before ProximityChecker's initial SetVis call,
+        //    otherwise we get a hidden character with visible equipment
+        //    (hence OnStartClient and not Start)
+        for (int i = 0; i < equipment.Count; ++i)
+            RefreshLocation(i);
+    }
+</code></pre>
+...COMPLETELY with the code block below (adds a new hook):
+<pre><code>
+public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        // setup synclist callbacks on client. no need to update and show and
+        // animate equipment on server
+        equipment.Callback += OnEquipmentChanged;
+		
+		<font color="red">Utils.InvokeMany(typeof(Player), this, "OnStartClient_");    // Fhiz Core Change</font>
+		
+        // refresh all locations once (on synclist changed won't be called
+        // for initial lists)
+        // -> needs to happen before ProximityChecker's initial SetVis call,
+        //    otherwise we get a hidden character with visible equipment
+        //    (hence OnStartClient and not Start)
+        for (int i = 0; i < equipment.Count; ++i)
+            RefreshLocation(i);
+    }
+</code></pre>
+</p>
+</details>
+<details>
+<summary><font color="red"><b>[Click]</b></font> Player.cs (ca. line 1671)</summary>
+<p>
+EXCHANGE this code block:
+<pre><code>
+public void RefreshLocation(int index)
+    {
+       // ....
+       
+       .... lots of code here ...
+       
+       .... //
+    }
+
+</code></pre>
+...COMPLETELY with the code line below (adds a hook in the last part):
+<pre><code>
+public void RefreshLocation(int index)
+    {
+        //....
+        
+        .... still lots of code here ...
+        
+        ....//
+        
+        // addon system hooks
+        <font color="red">Utils.InvokeMany(typeof(Player), this, "OnRefreshLocation_", index); // Fhiz Core Change</font>
+        
+    }
+
+</code></pre>
+</p>
+</details>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Apply all core changes first, as stated above.</li>
+<li>[Required] Drag the Player Prefab to your scene, open the 3D model.</li>
+<li>[Required] Select the Player and in "Equipment - Equipment Info" search for the Mesh entry.</li>
+<li>[Required] Then if you want to set i.e. 1 head without helmet and 2 with helmet - search Category Head, there set the Mesh Size to 3 - then link there head naked as Element 0, Head with helmet 1 as Element 1, Head with helmet 2 as Element 2.</li>
+<li>[Required] Make sure to only activate the default model you want to show on your player, deactivate all others (or they will all show up at once during the game).</li>
+<li>[Required] Create 2 items for the helmets, there search for MeshNumber and enter 1 for helmet 1, and 2 for helmet 2</li>
+<li>[Optional] If you need one empty, just leave the Element empty (not linked), like for shoulders above index 0 is always also no item in this slot ...</li>
+
+</ol>
+</p>
+
+<h3>Additional Information</h3>
+
+<p>It is important to understand, that this AddOn is only useful if all meshes are already included as part of your player model. If you are using separate models, you can use the default equipment system instead!</p>
+
+<img width="75%" src="http://indie-mmo.net/addon-readmes/images/mesh-switcher.jpg">
+
+<hr />
+
+<h3>Videos</h3>
+
+<p>none</p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First Release</li>
+<li>2019.1: Bugfix that did not show material on other clients in dedicated</li>
+<li>2019.2: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+<li>2019.3: Added color switching (requires Material/Shader that allows for Color Tint)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

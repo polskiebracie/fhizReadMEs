@@ -1,0 +1,169 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+UCE ELEMENTS 2019.3
+</h1>
+
+<p>
+<i>Adds elements, elemental attacks and elemental modifiers to entities, skills, buffs and equipment. This uses a rather simple but effective setup:
+<br><br>
+Attacks are marked with an element e.g. "Fire"<br>
+Attack damage is modified according to the targets "Fire Resistance"<br>
+Thats all, easy and effective.
+</i>
+</p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/elemental-resistances/elements-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/elemental-resistances/elements-2.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/elemental-resistances/elements-3.jpg">
+</center>
+
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-attributes.html" target="_blank">UCE Attributes</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZELEMENTS</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Install "UCE Attributes" AddOn first and do all core changes, it's required!</li>
+<li>[Required] Move the from this AddOns Resources > Elements folder into your projects main <b>Resources</b> folder, make a new folder for Elements there.</li>
+<li>[Required] Do <b>not</b> keep a duplicate element of the same name and use only one <b>Resources</b> folder in your project.</li>
+<li>[Required] Create as many elements as you like, you can also use them for "Sharp" or "Blunt" damage. Note: Elements have not stats by themselves. </b></li>
+<li>[Required] All monsters, players, pets etc. can now feature Elemental Resistances by default.</li>
+<li>[Required] All weapons, equipment, buffs and skills now feature Elemental settings.</li>
+<li>[Required] For weapons and skills you primarily assign a "Elemental Attack" by selecting one of your elements.</li>
+<li>[Required] For equipment (armor) and buffs you primarily assign one or more "Elemental Resistances" by selecting one element and a % factor.</li>
+<li>[Required] The value for "Elemental Resistance" will increase the resistance against this element, or set it to negative to decrease resistance.</li>
+<li>[Note] Elements are internally limited to a maximum of 24 - if you want to have more, you have to change that number in UCE_Elements.Player.cs</li>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<p><i>
+Combine this AddOn with "UCE Attributes" in order to have your players elemental resistances displayed next to their attributes and stats. Take a look
+at the prefab and UI elements that ship with "UCE Attributes".
+</i></p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/elemental-resistances/elements-4.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/elemental-resistances/elements-5.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/elemental-resistances/elements-6.jpg">
+</center>
+
+
+<ol>
+<li>You have to understand how the system works, its easy:</li>
+<li>By default, all attacks deal 100% of their calculated damage</li>
+<li>A elemental attack is compared to the targets elemental resistance of the same type</li>
+<li>This allows the elemental attack to deal more or less damage based on the elemental resistance of the target</li>
+<li>The sum of all equipment, buffs, attributes, skills etc. is the total elemental resistance of the target</li>
+<li>Again: the base resistance of all entities is always 1.0 (= 100% damage dealt) by default, if you modify it, the modifier is added on-top.</li>
+<li>Example 1: with a +0.05 buff, the  resistance of a entity would be 105%</li>
+<li>Example 2: With a +0.05 buff and a -0.10 equipment, the  resistance would be 95%</li>
+</ol>
+</i></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First Release</li>
+<li>2019.1: Bugfix in relation to equipment sets, Added caching, Elements can now feature a icon and a simple tooltip</li>
+<li>2019.2: Bugfix in conjunction with Equipment Sets</li>
+<li>2019.3: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

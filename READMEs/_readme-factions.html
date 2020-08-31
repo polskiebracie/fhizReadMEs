@@ -1,0 +1,152 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+FACTION SYSTEM 2019.2
+</h1>
+
+<p>
+<i>The Faction System allows you to add faction rankings to Npcs, Monsters, Players and Quests. Every players faction ratings can increase and decrease while playing, by attacking monsters (players, pets) of specific factions and by fulfilling faction specific quests. The faction ratings can result in various restrictions.</i>
+</p>
+
+<center>
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/factions/factions-1.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/factions/factions-2.jpg">
+</center>
+
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZFACTIONS</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Add all objects from "Prefabs [Drag to Canvas]" to your Canvas.</li>
+<li>[Required] Do not place the new UI game objects inside another object.</li>
+<li>[Required] Create a new Folder "UCE Factions" in your projects main Resources folder.</li>
+<li>[Required] Create new factions or move the content from the Addons "UCE Factions" folder to your folder.</li>
+<li>[Required] Do not keep duplicates of any faction templates with the same name.</li>
+<li>[Optional] Edit your faction templates to your liking.</li>
+<li>[Optional] Edit your player prefabs <b>starting factions</b>, your monsters <b>faction modifiers</b> as well as their <b>faction</b></li>
+<li>[Optional] See notes below for more use cases.</li>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>None</i></p>
+
+<h3>Additional Information</h3>
+<ul>
+<li>Players can show/hide the faction rating window by pressing "F".</li>
+<li>The faction ratings are separated into levels, you can edit them individually for each faction. Another way is to start with just one faction template and then duplicate it, if you want all faction levels to be the same.</li>
+<li>You can add starting factions to your players and set the ratings as well. Each player prefab can have varying faction ratings.</li>
+<li>Combine with my <b>Npc Restrictions</b> AddOn: Npcs won't talk to the player anymore when a faction requirement is not met!</li>
+<li>Combine with my <b>PvP Zone</b> AddOn: Add a faction to each monster to achieve the following:</li>
+<li>When the monster is set to <b>aggressive</b>, it <b>won't</b> attack the player - unless the players faction rating falls below the "Aggressive Threshold" of that faction.</li>
+<li>When the monster is set to <b>neutral</b>, it <b>will</b> attack the player - when the players faction rating falls below the "Aggressive Threshold" of that faction.</li>
+<li>There are 2 ways to influence the faction ratings of players: Kills (Monsters as well as other players and their pets) and Quests.</li>
+<li>Combine with <b>UCE Quests</b> AddOn: Quests can now modify faction ratings on completion. Quests can also require a specific faction rating as quest target, this allows you to create faction rating based quests.</li>
+<li>By default you can set a "faction modifier" on every player, pet and monster. The attackers faction ratings will be modified accordingly, when the monster is defeated.</li>
+
+</ul>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.0: First Release</li>
+<li>1.1: fixed icons being white and not showing up</li>
+<li>1.1: updated to uMMORPG3d 1.148</li>
+<li>2019.0: Updated to new versioning</li>
+<li>2019.1: Added mySQL support</li>
+<li>2019.2: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

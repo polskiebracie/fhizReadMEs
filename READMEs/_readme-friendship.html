@@ -1,0 +1,168 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+FRIENDSHIP SYSTEM 2019.6
+</h1>
+
+<p>
+<i>A friendship system: Allows to add and remove friends. Invite friends to parties and/or guilds. Combine with Honor Shop to "hug" friends once every X hours. Hugging grants you a small bonus in form of a Currency (customizable). Is the hugged player online, he or she will receive also a bit of currency in return.</p>
+
+<ul>
+<li>Add Friends/Remove friends via click on target or entering name (only when target is online)</li>
+<li>Direct invite Friends to Parties</li>
+<li>Direct invite Friends to Guilds</li>
+<li>See online status, level, guild and class</li>
+<li>Combine with my "Honor Shop" AddOn to allow "Hugging players" in order to gain a bit of honor currency</li>
+</ul>
+</i>
+</p>
+
+<center>
+<img width="35%" src="https://indie-mmo.net/addon-readmes/images/friendship/friendship-1.jpg">
+<img width="35%" src="https://indie-mmo.net/addon-readmes/images/friendship/friendship-2.jpg">
+<img width="35%" src="https://indie-mmo.net/addon-readmes/images/friendship/friendship-3.jpg">
+<img width="35%" src="https://indie-mmo.net/addon-readmes/images/friendship/friendship-4.jpg">
+<img width="35%" src="https://indie-mmo.net/addon-readmes/images/friendship/friendship-5.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-honor-shop.html" target="_blank">UCE Honor Shop & PVP Currencies (Optional)</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZFRIENDS</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Add everything from "UI [Drag to Canvas]" to your canvas.</li>
+<li>[Required] Add the button in "UI [Add to Canvas - Target Panel]" to "Canvas -> Target -> TargetPanel" position next to the buttons.</li>
+<li>[Required] Attach the script in "UI [Add to Canvas - Target as new component]" to "Canvas -> Target" and assign the new button to it. </li>
+<li>[Optional] Edit the "UCE Friendship" template in this AddOns "Prefabs" folder to your liking.</li>
+<li>It makes sense to have just one "UCE Friendship" object, you can create a new one via right-click menu if it gets lost. This object may remain in this folder, you don't have to place it in resources folder!</li>
+<li>[Required] Assign the "UCE Friendship" template from this AddOns "Prefabs" folder to each one of your player prefabs in the new "UCE Friendship" section.</li>
+
+</ol>
+</p>
+
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<p><i>This AddOns most important feature is "Hugging" which is only available in combination with my "Honor Shop" AddOn!</i></p>
+
+<p><i>You can leave one of the two Honor Currency fields in the template empty, but not both. When both are empty the "Hugging" feature will be disabled.</i></p>
+
+<p><i>Player cannot remove friends after hugging, they will have to wait until the target can be hugged/removed again. Its either hugging or removing to prevent fraud.</i></p>
+
+<p><i>A hugged player can receive a different Currency/Amount than the hugging player!</i></p>
+
+<p><i>You can have multiple "UCE Friendship" templates and assign them to player prefabs. This will allow different classes to have varying kinds of Honor Currency.</i></p>
+
+<p><i>Note that there are some tokens like {0} in the editable text snippets, dont remove them! Those are replaced at runtime with names/values.</i></p>
+
+<p><i>Please note that most actions are only available when the other player is online - this is a uMMORPG3d asset limitation!</i></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.0: First Release</li>
+<li>1.1: Updated to match uMMORPG3d 1.149</li>
+<li>2019.0: Updated to new versioning</li>
+<li>2019.1: Updated to uMMORPG3d 1.157</li>
+<li>2019.2: Removed NIL exception if UI elements have not been assigned</li>
+<li>2019.3: Fixed a bug in dedicated, when combined with RealmID you can only friend players that are Realm/alliedRealm (you cannot friend your hostile realms anymore)</li>
+<li>2019.4: Added mySQL support</li>
+<li>2019.5: Updated to uMMORPG 1159</li>
+<li>2019.6: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

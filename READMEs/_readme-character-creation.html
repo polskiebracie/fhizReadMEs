@@ -1,0 +1,161 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+CHARACTER CREATION 2019.6
+</h1>
+
+<p>
+<i>Adds a character creation interface to the game that replaces the default interface. It allows you to look at the available classes while creating a new character.</i>
+</p>
+
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/character-creation/character-creation-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/character-creation/character-creation-2.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/character-creation/character-creation-3.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><b>[Click]</b></font> UICharacterSelection.cs (ca. line 11)</summary>
+<p>
+EXCHANGE this line:
+<pre><code>
+    public UICharacterCreation uiCharacterCreation;
+</code></pre>
+...COMPLETELY with the line below:
+<pre><code>
+    <font color="red">public UCE_UI_CharacterCreation uiCharacterCreation;</font>
+</code></pre>
+</p>
+</details>
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Move the "CharacterCreationSpawnPoint" to any area of your scene. This will be where the preview of the player model is created. It should be a special area way outside of the real playable region of your game.</li>
+<li>[Required] Move the "Creation Transform" to that area as well and make it look at your "CharacterCreationSpawnPoint".</li>
+<li>[Required] Add the "UCE_UI_CharacterCreation" UI element to your canvas. Make sure to put it directly above the default "Character Selection" in your canvas.</li>
+<li>[Required] Check the "Class List" and expand the list to match the number of classes available in your game.</li>
+<li>[Required] Add buttons and text to each entry in the "Class List". If you have more than 2, add a new button and link that button and its text as well.</li>
+<li>[Required] Link the "SpawnPoint" to the "CharacterSpawnPoint"</li>
+<li>[Required] Link the "Network Manager" to the Network Manager in your scene.</li>
+<li>[Required] Link the "Creation Camera Location" to the "Creation Transform" in your scene.</li>
+<li>[Required] Finally make sure to deactivate the old Character Creation UI element. Do not delete them (we might need them later for updates).</li>
+<li>[Required] Now link the new "UCE_UI_CharacterCreation" in the default CharacterSelection in the inspector. To activate the new Character Creation panel instead of the default one.<br>
+
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/M3Z0kQfTMrM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+<h3>Additional Information</h3>
+
+<p><i>If you check "Look at Camera" it will force the model to always look towards the "Creation Transform". Uncheck if not required.</i></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.3: Major Update</li>
+<li>1.4: Updated to uMMORPG 1.138</li>
+<li>1.5: Bugfixes</li>
+<li>1.6: Updated to uMMORPG 1.152, removed the "Selection" part (as it is available in the core now)</li>
+<li>2019.0: Preperations for unlockable Classes AddOn</li>
+<li>2019.1: Players now look correctly at camera, Players are now shown with starting equipment</li>
+<li>2019.2: Bugfix</li>
+<li>2019.3: updated to uMMORPG 1159</li>
+<li>2019.4: updated to uMMORPG 1160</li>
+<li>2019.5: bugfix, compatability issue with other addon</li>
+<li>2019.6: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>
