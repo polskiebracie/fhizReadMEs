@@ -1,0 +1,219 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+ADMIN CONSOLE COMMANDS 2019.5
+</h1>
+
+<p>
+<i>
+A chat command based admin console. Its not a beauty, but its very powerful: Customizeable, Scriptable, Extendable Commands. Nominate/Demote Admins on the fly, add Admin levels, admin level based commands, commands that target individual players or parties, guilds. Ships with over a dozen admin commands.
+</i>
+</p>
+<hr>
+
+Offers a chat command based admin interface that allows players with admin
+rights to perform special actions. To use the console, any admin can simply
+type special commands into the chat, like this:
+<pre><code>
+/giveItem t Fhiz 1 Sun Sword
+</code></pre>
+<br>
+which will give the online (t)arget player (Fhiz) (1) (Sun Sword) Item. The syntax
+can be seen in the command scriptable objects and it is also explained in the
+info box, when an admin types it wrong.
+<br><br>
+Using the targeting system, an admin can also target a command at more than
+one (online) player:
+<br>
+<pre><code>
+/giveItem g Admins 1 Health Potion
+</code></pre>
+<br>
+This will give all online (g)uild members of the (Admins) guild (1) (Health Potion) each.
+<br><br>
+Despite the lack of a graphical user interace, this AddOn is very powerful:
+<br>
+<ul>
+<li>Trigger admin actions based on admin rights.</li>
+<li>Target one, more or all online players.</li>
+<li>Secure validation and execution, also in dedicated.</li>
+<li>Commands are customizable, also for non-programmers.</li>
+<li>Commands are extendable, for programmers.</li>
+<li>Ships with the following commands by default:</li>
+</ul>
+<ul>
+<li>BanPlayer</li>
+<li>DeletePlayer</li>
+<li>GetPlayerInfo</li>
+<li>GiveCoins</li>
+<li>GiveExp</li>
+<li>GiveGold</li>
+<li>GiveItem</li>
+<li>KickPlayer</li>
+<li>KillPlayer</li>
+<li>SetAdmin</li>
+<li>SummonMonster</li>
+<li>TeleportPlayer</li>
+<li>UnbanPlayer</li>
+<li>UndeletePlayer</li>
+<li>UnsummonMonster</li>
+<li>SendMessage</li>
+</ul>
+</p>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+
+<li>Move the "Resources -> Commands" folder to your projects resources.</li>
+<li>Add "UCE_AdministrationConsole" to each one of your player prefabs.</li>
+<li>In the new component, open and edit "Commands" on each one:</li>
+	<ul>
+	<li>Add enough elements to match amount of commands in Commands folder</li>
+	<li>Assign each command to one element slot</li>
+	</ul>
+<li>A bit further downwards, edit the "Target Tags" like this:</li>
+	<ul>
+	<li>enter "t" for Player (or any other string you like)</li>
+	<li>enter "p" for Party (or any other string you like)</li>
+	<li>enter "g" for Guild (or any other string you like)</li>
+	<li>enter "r" for Realm (or any other string you like)</li>
+	<li>enter "a" for All (or any other string you like)</li>
+	</ul>
+<li>Take a look at the screenshot below, how the Console script should look after you are finished editing it (sorry, there is no easier way currently)</li>
+<br>
+<img src="https://indie-mmo.net/addon-readmes/images/admin-commands/admin-commands.png">
+
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>None</i></p>
+
+<h3>Additional Information</h3>
+<ul>
+
+<li>ATTENTION: The very first account you create, will always be your Master
+Admin account. This one has the highest admin level and is able to upgrade
+or downgrade other players to admins.</li>
+
+<li>ATTENTION: Almost all actions the admins can do, target only ONLINE PLAYERS,
+it is not possible yet to add items to offline players inventory for example!</li>
+
+<li>ATTENTION: There is a hidden problem in the uMMORPG3d core asset that prevents characters from being deleted. It overwrites the deleted entry all the time and there is no easy fix for this yet. It is located in Database.cs file in CharacterSave function:
+<pre><code>
+ExecuteNonQuery("INSERT OR REPLACE INTO characters VALUES (@name, @account, @class, @x, @y, @z, @level, @health, @mana, @strength, @intelligence, @experience, @skillExperience, @gold, @coins, @online, 0)"
+</pre></code>
+
+That last entry of '0' is for the deleted value and will always save to 0 (since the player is online and obviously not deleted, when this is called).<br><br>
+
+Nevertheless there is messy workaround, that you will have to implement for yourself for now: It involves creating a new syncvar for the player UCE_playerDeleted and changing the Database Query in core to use it during saves. Additionally, you would have to set that variable before making changes. Finally, just before disconnecting the player, after delete, do a Character Save to make sure the value sticks. Lastly, take out the client info msg about being deleted, since the disconnect is almost instant and they wont see it.
+
+</ul>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.0: First Release</li>
+<li>1.1: Fixed a bug where every new player was set to be "Admin"</li>
+<li>2019.0: Updated to new versioning</li>
+<li>2019.1: Bugfix</li>
+<li>2019.2: Added mySQL support</li>
+<li>2019.3: mySQL bugfix</li>
+<li>2019.4: Bugfix (typecast in cached NPCs)</li>
+<li>2019.5: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>
