@@ -1,0 +1,144 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+PLAYER TRAITS 2019.4
+</h1>
+
+<p>
+<i>Adds customizeable character traits to players (right now, all player prefabs are the same). Traits can be assigned during character creation. Traits can modifiy almost everything from attributes to stats, skills, resistances etc.</i>
+</p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/traits/traits-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/traits/traits-2.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-attributes.html" target="_blank">UCE Attributes</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-character-creation.html" target="_blank">UCE Character Creation</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZTRAITS</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Make sure to install all other AddOns first, as "UCE Traits" requires them.</li>
+
+<li>[Required] Add the "Resources > UCE Traits" folder to your projects main <b>Resources</b> via drag-n-drop.</li>
+<li>[Required] Do <b>not</b> keep duplicate objects of the same name and use only one <b>Resources</b> folder in your project.</li>
+<li>[Required] Edit the new "UCE Traits" section on your player prefabs and assign a number of trait points to them.</li>
+<li>[Optional] Take a look at the Trait templates that ship with the AddOn, modify them and/or create your own via context menu.</li>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>None</i></p>
+
+<h3>Additional Information</h3>
+
+<ol>
+<li>Traits are only available during character creation and cannot be altered afterwards anymore (at least not yet).</li>
+<li>Traits allow your players to modify almost every aspect on their characters (stats that is, not visual aspects).</li>
+<li>Carefully edit the number of trait points each player prefab has available, as well as the trait cost of each trait.</li>
+<li>Assign a unique group ID to traits, to limit your players to just one trait of that group.</li>
+<li>Check the "Allowed Classes" section on the Trait template, to limit a trait to a certain class.</li>
+</ol>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First release</li>
+<li>2019.1: Bugfix</li>
+<li>2019.2: Updated for new PVP Zone functionality</li>
+<li>2019.3: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+<li>2019.4: Added support for new secondary stats in Attributes</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

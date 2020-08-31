@@ -1,0 +1,148 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+TELEPORTER 2019.5
+</h1>
+
+<p>
+<i>
+A greatly enhanced version of the built in teleporter with a whole lot of customization options. It uses a Collider to represent the teleporter, so you can place it everywhere in your scene. The teleporter is triggered when entered by a player and requires the player to confirm the teleport via a button click on a UI window.
+</i>
+</p>
+
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/teleporter/teleporter-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/teleporter/teleporter-2.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Add a new teleporter from this AddOns "Prefabs [Drag to Scene]" folder to your scene.</li>
+<li>[Required] Edit all settings and don't forgot to assign a teleportation target.</li>
+<li>[Note] The "Simple" teleporter has no options, while the "Interactable" teleporter provides options that can limit it's interaction (requires class, item etc.).</li> 
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<ol>
+<li>[Note] In addition to the "Simple" and "Interactable" teleporters, you can also create a "Limited" Teleporter:</li>
+<li>[Optional] If you want to create a teleport zone with a limited player count, you have to use the objects in the "Limited Teleport" subfolder instead.</li>
+<li>[Optional] For a limited zone, you will need exactly one limited zone object and at least one teleporter that acts as entrance.</li>
+<li>[Optional] You have to link all teleporter entrances to your limited zone to make it work. Its also a good idea to corner off the zone, so it cannot be entered by normal means.</li>
+<li>[Optional] If you set it up correctly, you will then have a zone that only a limited number of players can enter at once - and only through the provided teleporters.</li>
+</ol>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.0: First Release</li>
+<li>1.1: Added limited zones functionality</li>
+<li>2019.0: Added SimpleTeleport with much less overhead</li>
+<li>2019.0: Updated to new versioning</li>
+<li>2019.1: Updated to uMMORPG 1.155</li>
+<li>2019.2: Added Network Zones support</li>
+<li>2019.3: Updated for new PVP Zone functionality</li>
+<li>2019.4: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+<li>2019.5: Npcs can now offer teleportation targets (alongside requirements) as well</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

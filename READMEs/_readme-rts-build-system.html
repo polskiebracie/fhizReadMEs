@@ -1,0 +1,163 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+RTS BUILD SYSTEM 2019.1
+</h1>
+
+<p>
+<i>
+Enables players to place persistent objects in the game world. If the object is based on an Entity, it can also be upgraded. Objects are saved permanently in the database, can optionally be picked up again and their placement can be limited. This is very much like the build system found in RTS games like "Warcraft 3" (select building, select spot, start to build, finish build, access building).
+</i>
+</p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/rts-build-system/rts-build-system-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/rts-build-system/rts-build-system-2.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/rts-build-system/rts-build-system-3.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZBUILDSYSTEM</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Move the items in this AddOns "Resources > Items" folder into your projects main Resources > Items folder. Or simply create new items using the context menu.</li>
+<li>[Required] Add the Game Objects in this folders "Structures [Examples] > Prefabs [Add to NetworkManager spawnable prefabs list]" to your NetworkManager spawnable prefabs list (you don't have to do this for the previews).</li>
+<li>[Required] Make the item available to your players in order to test. Use such a item at a empty spot on your terrain to place a structure there. Wait until it is finished and wait for the next database save cycle. Quite and restart, login and see that the placed object re-appears.</li>
+
+
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<ol>
+<li>The Build System uses three parts: a Item (Scriptable Object) to spawn an object and a Game Object that represents the spawned object, plus a "Preview" object that is displayed to the player while the actual object is being built. You are encouraged to exchange the Game Object and it's Preview as you like. If your Game Object is based on a Entity (like a Monster etc.) your players can (optionally) also "upgrade" that object (just like a building in a RTS or Tower defense game). Upgrading will increase that game objects level by +1 and will increase it's stats.</li>
+<li>The Preview Objects can be simple Game Objects, they neither have to be Entities nor Network Identities, as they are only displayed client side to the local player.</li>
+<li>
+Game Objects placed using the Build System are saved server side and will be present forever. They re-appear when the server restarts. When such an object is set to "destroyable" and its health falls below 0 (or it is destroyed otherwise) - it will be deleted from the database as well. "Destroyable" only works in conjunction with objects that are based on the Entity class.
+</li>
+
+<li>
+The placement of Game Objects can optionally be limited to a "UCE RTS Build System Build Area". You will have to place such an area inside your scene and assign a ID number to it. Now assign the same ID number to any "Structure Item" and the Game Object that can be built by this item is limited to areas of that ID. That way you can limit where players can place certain objects.
+</li>
+<li>
+You can restrict the placement of Game Objects even more by limiting it to Areas that are owned by the Player and/or it's guild. This means your players will have to build a "Guild Area" / "Personal Area" first by placing it and then place a Game Object inside it. So first you let your players build their build areas and then they are allowed to build objects inside of it.
+</li>
+
+<li>
+This System uses any class based on "Entity" as it's base class for a placeable object - but it can also do without. In order for a placeable object to be upgradeable, it has to be a Entity - as only Entities offer a "level" variable. Of course you can use any class, so it can also be a Monster.
+</li>
+
+<li>
+If you want to use another class that is not a Monster, you will have to create your own class and derive it from Entity. With a bit of coding knowledge you can easily create a "Building" class for example. This might be added to this AddOn in the (far) future as default functionality.
+</li>
+
+</ol>
+
+
+
+<p><i>None</i></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First Release</li>
+<li>2019.1: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

@@ -1,0 +1,140 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+SUMMON SKILL 2019.1
+</h1>
+
+<p>
+<i>
+This is the same as the Monster Scroll, but it comes in the form of a Skill. Allows the caster to summon on or more Monsters. Combine with the Realm settings in my PVP Zones AddOn to summon allies instead. Add "DestroyAfter" component to the Monsters to have them dis-appear after a specific amount of time again. Summon Undead / Elemental anyone?
+</i>
+</p>
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Simply create a new Skill via the context menu and edit it's settings in the inspector.</li>
+<li>[Required] Make the skill available to your players in order to test.</li>
+<li>[Required] Switch to the "Animator" of your player prefab(s) and add a new Animator state and name it just like your Skill.</li>
+<li>[Required] Still on the "Animator" add a new Animation Parameter as Bool. Name as skill.</li>
+<li>[Required] Still on the "Animator" create a transition and new Animator state to the rest of the Animator.</li>
+<li>[Required] Still on the "Animator" set the conditions on the transition (see how the other skills do it) and add your new Bool Parameter (true) to it.</li>
+
+<li>[Optional] Add a "DestroyAfter" component to the prefabs that can be summoned and set a time. This will destroy summoned objects after a while again.</li>
+<li>[Optional] Combine with  my "PvP Zone" AddOn and set the Realm of the summoned objects same as the summoner itself. This allows you to create allies.</li>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos (not fully up to date)</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<p><i>
+<ul>
+<li>Note: You can summon any kind of GameObject, not just Monsters using this skill. Get creative:</li>
+<li>Idea: Summon an Npc to allow players to summon temporary Shops. </li>
+<li>Idea: Summon a temporary Resource Node.</li>
+</ul>
+</i></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>1.0: First Release</li>
+<li>2019.1: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

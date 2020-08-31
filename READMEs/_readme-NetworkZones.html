@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>NetworkZonesReadMe</title>
+</head>
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+NETWORK ZONES 2019.11
+</h1>
+
+<p>
+
+This modified version of the official NetworkZones AddOn will allow you to run multiple Unity instances on one server and therefore allow your gameworld to span across several scenes instead of just one.
+</p>
+
+<h3>Why Zones are required</h3>
+<p>
+
+<ul>
+<li>Unity Technologies themselves recommend to split big scenes into several smaller ones. They recommend it everywhere, for networked and offline projects.</li>
+<li>A built-in limitation of Unity limits the scene size to 4 GB total (based on file size).</li>
+<li>A built-in limitation of Unity limits the amount of active connections per unity instance to ca. 1.200 (but we don't need that many anyway)</li>
+<li>Starting at ca. 500.000 game objects in a scene, the Editor is so slow it is almost unusable.</li>
+<li>At a certain size, you will run into floating point precision errors with a large scene.</li>
+<li>The bigger the NavMesh on a single scene is, the slower the pathfinding process becomes.</li>
+<li>Global Lighting on a single scene is limited. It's difficult to have both overground and underground areas in one sene.</li>
+<li>Adding multiple Biomes Assets to one scene will soon make your Clients run into memory limitations (unless you use Asset Bundles).</li>
+</ul>
+
+</p>
+<hr />
+
+<h3>General Guidelines</h3>
+<p>
+
+<ul>
+<li>Get ready for a lot of headaches! In fact Unity, uMMORPG, UNET, Mirror/Telepathy Networking where not build to fully support multiple scenes in persistent online environments. We are on unchartered terrain here.</li>
+<li>Network Zones only work on a compiled server build, it does not work on host + play or a server that runs off the Unity editor. Build a server, run it locally and connect to it instead.</li>
+<li>Use the very first scene in your project only as a "Init" scene for Character Creation, Selection and Login.</li>
+<li>Never, ever set a portal to return to the "Init" scene as it will mess up the scene setup.</li>
+<li>When duplicating scenes, get rid of all game objects with a "Network Identity" in them (Monsters etc.) as their ID numbers will still reference the original scene. Re-add them from prefabs instead.</li>
+</ul>
+
+</p>
+<hr />
+
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZZONES</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><font color="red"><b>[Click]</b></font></font> NetworkManagerMMO.cs (ca. line 324)</summary>
+<p>
+EXCHANGE this code block:
+<pre><code>
+        // add selection script
+        preview.AddComponent&lt;SelectableCharacter&gt;();
+        preview.GetComponent&lt;SelectableCharacter&gt;().index = selectionIndex;
+</code></pre>
+...COMPLETELY with the code block below:
+<pre><code>
+        // add selection script
+        preview.AddComponent&lt;SelectableCharacter&gt;();
+        preview.GetComponent&lt;SelectableCharacter&gt;().index = selectionIndex;
+        <font color="red">preview.GetComponent&lt;SelectableCharacter&gt;().manager = this;</font>
+
+</code></pre>
+</p>
+</details>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Duplicating Scenes</h3>
+<p>
+
+Typically, you create a new scene by duplicating the existing default uMMORPG scene called "World". When using Network Zones, take care of a few things:
+
+<ul>
+<li>Get rid of all game objects with a "Network Identity" in them (Monsters etc.) as their ID numbers will still reference the original scene. Re-add them from prefabs instead.</li>
+<li>Make sure to delete the following objects from the scenes hierarchy: Canvas, NetworkManager, Minimap Camera, Event System</li>
+</ul>
+
+<hr />
+
+<h3>Addon Integration Steps & Core Changes</h3>
+<p>
+<ol>
+
+	<li>[Warning!] These changes modify core and addon scripts - be careful if changes were applied already!</li>
+	<li>[Required] Update the "Mirror" Network to the latest version, check the link above. The version that ships with uMMORPG is usually too old.</li>
+	<li>[Required] Depending on your Mirror version, you have to edit one of the scripts to fix a bug, see here: <a href="https://github.com/vis2k/Mirror/pull/541/files">https://github.com/vis2k/Mirror/pull/541/files</a></li>
+	<li>If you already have Network Zones installed, delete that AddOn - it is included in this AddOn already (with a few important changes). Also ignore the original installation instructions as they are included here as well.</li>
+	<li>[Required] Install Fhiz's <b>AutoRegisterSpawnables Addon [FREE]</b> and setup as stated in the Readme.</li>
+	<li>[Required] Now you install this <b>NetworkZones AddOn</b> itself, follow these directions:</li>
+	
+	<ul>
+		<li>[Required] In your original NetworkManagerMMO.cs go to ca. line 324 (where it says add selection script in the comment above it) and add this new line below it:
+		<pre><code>preview.GetComponent&lt;SelectableCharacter&gt;().manager = this;</code></pre></li>
+		
+	</ul>
+	
+	<li>[Required] Delete SelectableCharacter.cs from uMMORPG/Scripts folder (Very Important)</li>
+	
+	<li>[Required] Add NetworkZone component to NetworkManager once.</li>
+	<ul>
+	<li>[Required] Assign public components by dragging networkmanager's components into it</li>
+	<li>In this example Set 'Scene Paths to Spawn' - Size to 3</li>
+	<li>Using the default path as a guide add your scenes including the Scene00_Init for character login, creation and selection.</li>
+	<li>Example:</li>
+		<ul>
+			<li>Element 0 = Scene00_Init (Character Login, Creation, Selection)</li>
+			<li>Element 1 = Scene01 (First Playable Location)</li>
+			<li>Element 2 = Scene02 (Another Playable Location)</li>
+			<li>and so on... if you have more scenes</li>
+		</ul> 
+	</ul>
+	<li>[Required] Add DontDestroyOnLoad component only to the following (drag script or click on add component):</li>
+	<ul>
+		<li>Canvas</li>
+		<li>EventSystem</li>
+		<li>MinimapCamera (referenced by the prior two)</li>
+	</ul>
+	<li>[Required] From the NetworkZone AddOn, drag the Zone Portal prefab to your scene</li>
+	<li>[Required] On the portal, change the Scene to the destination scene, in this case Scene01</li>
+	<ul>
+		<li>Scene01 (Playable Location)</li>
+	</ul>
+	<li>[Required] Save Scene00_Init</li>
+	<li>[Required] Select from Scenes, Scene00_Init in the Project Area (Not Hierarchy), Duplicate it via ctrl+d</li>
+	<li>[Required] Rename the duplicated scene to Scene01 (in this example)</li>
+	<li>[Required] Go to File-&gt;Build Settings and add Scene01 (Drag from Project Area)</li>
+	<li>[Required] Open Scene01 and delete the following from hierarchy:</li>
+	<ul>
+		<li>Canvas</li>
+		<li>EventSystem</li>
+		<li>MinimapCamera</li>
+		<li>NetworkManager</li>
+		<li>Delete <b>ALL</b> Spawnable Prefabs that were copied over from Scene00_Init</li>
+		<li>You can change the scene however you like, just leave in Respawn points (any location)</li>
+		<li>Change the copied Network Zone Portal as shown in the next step.</li>
+	</ul>
+	<li>[Required] Select the Scene01 Network Zone Portal GameObject in scene and in the inspector change the ScenePath to the destination scene, in this case Scene02</li>
+	<ul>
+		<li>Scene02 (Playable Location)</li>
+	</ul>
+	<li>[Required] Save Scene01</li>
+	<li>[Required] Select from Scenes, Scene01 in the Project Area (Not Heirarchy), Duplicate it via ctrl+d</li>
+	<li>[Required] Rename the duplicated scene to Scene02 (in this example)</li>
+	<li>[Required] Go to File-&gt;Build Settings and add Scene02 (Drag from Project Area)</li>
+	<li>[Required] Select the Network Portal in the hierarchy.</li>
+	<li>[Required] Select the Scene02 Network Zone Portal GameObject in scene and in the inspector change the Scene to the destination scene, in this case Scene01 (to return back to scene01).</li>
+	<ul>
+		<li>Scene01 (Playable Location)</li>
+		<li>You can continue on with multiple worlds(scenes) just add and name according. In this case we are just returning to the first playable area.</li>
+	</ul>
+	<li>[Note] Never ever set a portal to return to Character Login, Create and Select Scene in this case Scene00_Init</li>
+	<li>[Required] Save Scene02</li>
+	<li>[Optional] Test Network Zones:</li>
+	<ul>
+		<li>Press 'Build and Run'</li>
+		<li>When the build starts select 'Server-Only' (notice the other processes will startup as well, Press 'Play' on them.)</li>
+		<li>Press the Play Button in the Editor:</li>
+		<ul>
+			<li>Login (default account)</li>
+			<li>Create and Select your Character</li>
+			<li>Run into the portals to test function</li>
+		</ul>
+	</ul>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information & Known Issues</h3>
+
+<ul>
+	<li>Chat doesn't work across zones yet. using an irc server is a possible solution</li>
+	<li>Guild/Party invites do not work across zones yet.</li>
+	<li>Sqlite does allow concurrent access. but if you get errors, consider using mysql.</li>
+	<li>AddOns like UCE Friendship do not work across zones yet.</li>
+	
+</ul>
+
+<h3>Version History</h3>
+<p>
+<ul>
+	<li>2019.0: First Release</li>
+	<li>2019.2: Updated for uMMORPG 1.158 & Unity 2018.2.02f1</li>
+	<li>2019.3: Updated for Unity 2018.3.6f1 & uMMORPG 1.158, Removed some core changes</li>
+	<li>2019.4: Updated to most recent version of Unity and uMMORPG, added updated documentation.</li>
+	<li>2019.5: Added option to set a starting scene based on character prefab.</li>
+	<li>2019.6: Bugfixes, code adjustments, partial re-write, Network Portal is now an interactable object.</li>
+	<li>2019.7: Added "Network Spawner" prefab and script.</li>
+	<li>2019.8: Updated to uMMORPG 1159</li>
+	<li>2019.9: Updated to uMMORPG 1160</li>
+	<li>2019.10: Increased failsave by reducing scene name and scene index references</li>
+	<li>2019.11: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>
+</html>

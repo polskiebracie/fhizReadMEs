@@ -1,0 +1,158 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+SANCTUARY 2019.2
+</h1>
+
+<p>
+<i>This addon allows you to add one or more Sanctuaries to your scenes. A Sanctuary is a
+area that allows your players to recover while being offline (like a Inn, Camp or Restplace).
+<br><br>
+After your players logged-out, while inside a Sanctuary, they will recover their stats and
+even gain stats the longer they stay offline. You can adjust the recovery and gain rates
+(as well as maximums) in the Inspector settings of the Sanctuary, once you placed it in
+your scene.</i></p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/sanctuary/sanctuary-1.jpg">
+</center>
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>Uses no Defines</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+<pre>
+<code>None or just global core changes</code>
+</pre>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Add "UCE_Area_Sanctuary" from this AddOns prefabs folder to your scene, edit settings in inspector.</li>
+</ol>
+
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<p><i>
+
+Logging out inside a Sanctuary allows your players to:
+<br><br>
+* Recover Health while being offline<br>
+* Recover Mana while being offline<br>
+* Gain Skill Experience while being offline (with an optional cap)<br>
+* Gain Experience while being offline (with an optional cap)<br>
+* Gain Gold while being offline (with an optional cap)<br>
+* Gain Coins while being offline (with an optional cap)<br>
+<br><br>
+You can mix all attributes as you wish, so a Sanctuary can provide some or all of the
+rates stated above. You can also have several Sanctuaries in your scene, each one with
+individual settings (like a Inn where player recover Health/Mana while being offline or
+a Goldmine where players earn gold while being offline etc.).
+<br><br>
+Simply set a rating to 0 to disable it.
+<br><br>
+Each rating refers to the number of seconds that must pass in order to grant the player
++1 of the given stat (eg. SecondsPerHealth = 60 means the player recovers 1 health per
+60 seconds while being offline).
+
+</i></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: updated to uMMORPG3d 1.155</li>
+<li>2019.1: Added mySQL support</li>
+<li>2019.2: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

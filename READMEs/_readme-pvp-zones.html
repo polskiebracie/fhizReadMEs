@@ -1,0 +1,237 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+PVP ZONES & REALMS 2019.7
+</h1>
+
+<p>
+<i>
+Add various PVP types to your game and limit the regions where PVP combat can take place!<br>
+<ul>
+<li>Open PVP where everybody can attack anybody</li>
+<li>Guild PVP where members of different guilds can attack each other</li>
+<li>Realm PVP where members of different realms can attack each other</li>
+<li>Or any mix of the above</li>
+</ul>
+You can also add Realms to your Entities and create allied or hostile nations that way.
+When setup properly, you can create guards that defend one realm but attack others and many more interesting things.
+</i>
+</p>
+
+
+<center>
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/pvp-zones-realms/pvp-zone-1.jpg">
+<img width="50%" src="http://indie-mmo.net/addon-readmes/images/pvp-zones-realms/pvp-zone-2.jpg">
+</center>
+
+
+<hr />
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZPVP</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><b>[Click]</b></font> Player.cs (ca. line 1561)</summary>
+<p> 
+EXCHANGE this code block:
+<pre><code>
+// CanAttack check
+// we use 'is' instead of 'GetType' so that it works for inherited types too
+public override bool CanAttack(Entity entity)
+{
+	return base.CanAttack(entity) &&
+		   (entity is Monster ||
+			entity is Player ||
+			(entity is Pet && entity != activePet) ||
+			(entity is Mount && entity != activeMount));
+}     
+</code></pre>
+...COMPLETELY with the code block below:
+<pre><code>
+// CanAttack check
+// we use 'is' instead of 'GetType' so that it works for inherited types too
+public override bool CanAttack(Entity entity)
+{
+	<font color="red">return UCE_CanAttack(entity);</font>
+}          
+</code></pre>
+</p>
+</details>
+<details>
+<summary><font color="red"><b>[Click]</b></font> Monster.cs (ca. line 547)</summary>
+<p> 
+EXCHANGE this code block:
+<pre><code>
+// CanAttack check
+// we use 'is' instead of 'GetType' so that it works for inherited types too
+public override bool CanAttack(Entity entity)
+{
+    return base.CanAttack(entity) &&
+           (entity is Player ||
+            entity is Pet ||
+            entity is Mount);
+}
+</code></pre>
+...COMPLETELY with the code block below:
+<pre><code>
+// CanAttack check
+// we use 'is' instead of 'GetType' so that it works for inherited types too
+public override bool CanAttack(Entity entity)
+{
+    <font color="red">return UCE_CanAttack(entity);</font>
+}
+</code></pre>
+</p>
+</details>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] Add the "UCE_Area_PVPZone" to your scene, edit it in the inspector. PvP combat is only possible within such an area from now on.</li>
+<li>[Note] Players, Pets and Monsters now have a Realm as well as allied Realm (Ally).</li>
+<li>[Required] You have to set a different Realms for Monsters and Players or they will not be able to attack each other.</li>
+<li>[Optional] EXAMPLE: Set the bandit prefab to "Elf", the skeleton prefab to "Undead" and the players to "Human" to test. You can leave all allied realms empty for now.</li>
+<li>[Optional] EXAMPLE: To add NPC guards of a specific realm, use a monster as a base and set both of it's Realms to the same as the players of that realm.</li>
+<li>[Required] Go to: File -> Player -> Physics<br>
+See the Layer Collission Matrix and check the box on row "Monster" at column "Ignore Raycast"<br>
+Monsters attack each other now when set to Aggressive and of non-matching realms.</li>
+</ol>
+</p>
+
+<img src="https://indie-mmo.net/addon-readmes/images/pvp-zones-realms/physics-manager.png">
+
+<h3>Additional Information</h3>
+
+<i>
+
+<ul>
+
+<li>By default, this AddOn will DISABLE all PVP combat. You have to place a PVPRegion
+Collider in your scene to make certain types of PVP combat available within that collider.</li>
+
+<li>Both the Realm and the alliedRealm of Monsters and Players should be different, otherwise
+you won't be able to attack them.</li>
+<li>If you leave both Realm and Ally empty the Entity will be completely neutral and attackable by all / can attack all.</li>
+<li>Only "aggressive" monster will attack on their own.</li>
+<li>"Neutral" monsters will only strikeback but never attack on their on. They also do so only when attack by an enemy who is not of the same Realm ID.</li>
+<li>"Pacifistic" monsters never attack and never strike back.</li>
+
+<li>See that little "Captureable" option in the Monster inspector? Check that and when
+the monster is set to "respawn", it will do so and convert to the Realm of the player
+who killed it. Combine that with a guard tower that rises again, allied to the player who dealt the final blow.</li>
+
+<li>It is recommended to always corner-off your PVP Regions and connect them to
+other Regions in your scene via a teleporter. If you put a non-PVP region close to a
+PVP Region, weird things can happen. Players inside a PVP Region might be able to shoot
+at players outside the Region etc.</li>
+
+</ul>
+
+</i>
+
+<hr />
+
+<h3>Videos (not fully up to date)</h3>
+
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/1dj_ehjldQA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2.5: Bugfixes</li>
+<li>2.6: Preperations for future AddOns</li>
+<li>2.7: Updated Readme, added patch files</li>
+<li>2.8: Moved Core Changes to Tools</li>
+<li>2.9: Added messages, tooltips, editor gizmo</li>
+<li>2019.0: Updated to uMMORPG 1.155</li>
+<li>2019.1: Classes now partial, preperation for Build System, Players Realm now saved in the database</li>
+<li>2019.2: Updated to uMMORPG3d 1.157</li>
+<li>2019.3: Added mySQL support</li>
+<li>2019.4: Added "Super Aggressive" state - those monsters always attack, regardless of Realm/Faction ratings</li>
+<li>2019.5: Rewrote Realm/Ally system</li>
+<li>2019.6: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+<li>2019.7: Bugfixes with attack allowance</li>
+</ul>
+</p>
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

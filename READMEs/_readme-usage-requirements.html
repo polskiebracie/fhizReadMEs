@@ -1,0 +1,186 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+USAGE REQUIREMENTS 2019.2
+</h1>
+
+<p>
+<i>Adds limits on using/equipping/casting items/skills. Very helpful to limit item usage to certain classes or under special conditions. It also allows to limit usage of items/skills to special areas in your game.</i>
+</p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/usage-requirements/usage-requirements-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/usage-requirements/usage-requirements-2.jpg">
+</center>
+
+<hr>
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-pvp-zones.html" target="_blank">UCE PvP Zone & Realms (optional)</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZUSAGEREQUIREMENTS</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><b>[Click]</b></font> UsableItem.cs (ca. line 23)</summary>
+<p>
+EXCHANGE this code block:
+<pre><code>
+// check level etc. and make sure that cooldown buff elapsed (if any)
+        return player.level >= minLevel &&
+               (cooldownBuff == null ||
+                player.GetBuffIndexByName(cooldownBuff.name) == -1);
+</code></pre>
+...COMPLETELY with this code block:
+<pre><code>
+// check level etc. and make sure that cooldown buff elapsed (if any)
+        return <font color="red">UCE_CanUse(player) &&									// Fhiz Core Change</font>
+        		player.level >= minLevel &&
+               (cooldownBuff == null ||
+                player.GetBuffIndexByName(cooldownBuff.name) == -1);
+</code></pre>
+</p>
+</details>
+<details>
+<summary><font color="red"><b>[Click]</b></font> ScriptableSkill.cs (ca. line 56) </summary>
+<p>
+EXCHANGE this code block:
+<pre><code>
+    public virtual bool CheckSelf(Entity caster, int skillLevel)
+    {
+        // has a weapon (important for projectiles etc.), no cooldown, hp, mp?
+        return caster.health > 0 &&
+               caster.mana >= manaCosts.Get(skillLevel) &&
+               caster.GetEquippedWeaponCategory().StartsWith(requiredWeaponCategory);
+    }
+</code></pre>
+...COMPLETELY with the code block below:
+<pre><code>
+    public virtual bool CheckSelf(Entity caster, int skillLevel)
+    {
+        // has a weapon (important for projectiles etc.), no cooldown, hp, mp?
+        return <font color="red">UCE_CanCast(caster, skillLevel) &&							// Fhiz Core Change</font>
+        		caster.health > 0 &&
+               caster.mana >= manaCosts.Get(skillLevel) &&
+               caster.GetEquippedWeaponCategory().StartsWith(requiredWeaponCategory);
+    }
+</code></pre>
+</p>
+</details>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+
+<li>[Required] Check the new section in your item and skill prefabs.</li>
+<li>[Optional] Most options are self explanatory, lets look at the "usage area" and "equipment id" options:</li>
+<li>[Optional] Add the "Usage Area" from this AddOns prefabs folder to your scene and set the ID in the inspector.</li>
+<li>[Optional] Create any item/skill with a matching ID to make this item/skill only activateable inside the area (all other restrictions also count).</li>
+<li>[Optional] Assign a "Usage Equipment ID" greater than 0 to any skill, to limit that skill activation.</li>
+<li>[Optional] Assign a "Usage Equipment ID" to any equipment item to require the player to have that item equipped in order to activate a skill with the same "Usage Equipment ID".</li>
+<li>[Optional] This way you can create "Axe Attack" that can only be activated when a "Axe" is equipped, just make sure that all Axes and Axe Skills share the same ID.</li>
+
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+
+<p><i>When using a Area and ID, the ID has to be greater than 0 - or it is ignored.</i></p>
+
+<p><i>When combined with "PVP Zones AddOn" you can limit the usage of the equipped weapon to a area as well.</i></p>
+
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First Release</li>
+<li>2019.1: Added more requirement options</li>
+<li>2019.2: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>

@@ -1,0 +1,176 @@
+<style>
+@import "https://fonts.googleapis.com/css?family=Open Sans:regular,semibold,italic,italicsemibold|Inconsolata&amp;v2";
+body {
+  font-family: "Open Sans";
+  margin: 6em 2em 2em 2em;
+}
+body:before {
+  content: '';
+  position: fixed;
+  top: 2%;
+  right: 3%;
+  height: 256px;
+  width: 256px;
+  background: url(https://indie-mmo.net/addon-readmes/images/global/fhiz-watermark.png) no-repeat 100% 100%;
+  background-size: contain;
+  z-index: 10;
+  opacity: 0.5;
+}
+h1, h2, h3, h4 {
+  font-weight: 600;
+}
+h1 {
+  position: fixed;
+  background: -webkit-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -moz-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -ms-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  background: -o-linear-gradient(top, white 65%, rgba(255,255,255,0));
+  width: 100%;
+  height: 80px;
+  padding: 10px 10px 10px 1em;
+  left: 0;
+  top: 0;
+  margin: 0;
+}
+h1 img {
+  height: 30px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+a { color: navy; }
+pre {
+  background: #eee;
+  margin-left: 2em;
+  padding: 5px;
+  border-left: 3px solid #ccc;
+}
+</style>
+
+<h1>
+<a href="https://www.patreon.com/Fhizban" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/patreon-badge.png" style="width:196px; height:48px"></a>
+<a href="https://www.youtube.com/channel/UC31c_fqaRo7B-omggZcMhxA" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/youtube-icon.png" style="width:48px; height:48px"></a>
+<a href="https://discord.gg/YkMbDHs" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/discord-icon.png" style="width:48px; height:48px"></a>
+<a href="https://www.indie-mmo.net" target="_blank"><img src="https://indie-mmo.net/addon-readmes/images/global/link-icon.png" style="width:48px; height:48px"></a>
+PRESTIGE CLASSES 2019.1
+</h1>
+
+<p><i>
+Adds a optional extra class to each player prefab that can be acquired by using a special item. Using the item adds a "prestige class" to the player, subsequent item uses can change the class to another class etc.
+<br><br>
+Skills and Items can now be limited to be useable/castable/learnable only by one or more prestige classes.
+<br><br>
+Already learned skills are kept and can still be used, even when changing prestige class (but you can set it up so that skills might not be useable after class change).
+<br><br>
+In addition, all interaction requirements can now also ask for a specific prestige class.
+</i></p>
+
+<center>
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/prestige-classes/prestige-class-1.jpg">
+<img width="50%" src="https://indie-mmo.net/addon-readmes/images/prestige-classes/prestige-class-2.jpg">
+</center>
+
+
+<h3>Additional Requirements</h3>
+<p>
+Some UCE AddOns require other AddOns to be installed first in order to work properly:
+<br><br>
+This AddOn requires the following AddOns(s):
+<pre>
+<code><a href="https://indie-mmo.net/addon-readmes/_readme-tools.html" target="_blank">UCE Tools</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-usage-requirements.html" target="_blank">UCE Usage Requirements</a>, <a href="https://indie-mmo.net/addon-readmes/_readme-traits.html" target="_blank">UCE Traits</a></code>
+</pre>
+</p>
+
+<h3>Scripting Defines</h3>
+<p>
+Most UCE AddOns use "Scripting Defines" that are added automatically on import. Sometimes you might be required to manually add or remove such a define. In that case, locate your defines list and remove the define (including the semicolon ; at the end). You find defines in your project here: Edit -> Project Settings -> Player - > Scripting Define Symbols (you can learn more about Defines <a href="https://indie-mmo.net/scripting-define-symbols/">HERE</a>).
+<br><br>
+This AddOn uses the following define(s):
+<pre>
+<code>_FHIZPRESTIGECLASSES</code>
+</pre>
+</p>
+
+<h3>Core Changes</h3>
+<p>
+Many AddOns require changes to the uMMORPG3d core scripts in order to function. The most common core changes are listed in a extra ReadMe contained in the UCE Tools AddOn (see <a href="https://indie-mmo.net/addon-readmes/_required-core-changes.html">HERE</a>). The changes for this AddOn are repeated below as well:
+<br><br>
+This AddOn requires the following core change(s):
+
+<details>
+<summary><font color="red"><b>[Click]</b></font> Player.cs (ca. line 1920)</summary>
+<p> 
+EXCHANGE this code block:
+<pre><code>
+// helper function for command and UI
+    // -> this is for learning and upgrading!
+    public bool CanUpgradeSkill(Skill skill)
+    {
+        return skill.level < skill.maxLevel &&
+               level >= skill.upgradeRequiredLevel &&
+               skillExperience >= skill.upgradeRequiredSkillExperience &&
+               (skill.predecessor == null || (HasLearnedSkillWithLevel(skill.predecessor.name, skill.predecessorLevel)));
+    }
+
+</code></pre>
+...COMPLETELY with the code block below:
+<pre><code>
+// helper function for command and UI
+    // -> this is for learning and upgrading!
+    public bool CanUpgradeSkill(Skill skill)
+    {
+        return <font color="red">UCE_CanUpgradeSkill(skill) &&							// Fhiz Core Change</font>
+        		skill.level < skill.maxLevel &&
+               level >= skill.upgradeRequiredLevel &&
+               skillExperience >= skill.upgradeRequiredSkillExperience &&
+               (skill.predecessor == null || (HasLearnedSkillWithLevel(skill.predecessor.name, skill.predecessorLevel)));
+    }
+</code></pre>
+</p>
+</details>
+
+</p>
+
+<hr>
+
+<h2>INSTALLATION PROCESS</h2>
+
+<h3>Integration Steps</h3>
+<p>
+<ol>
+<li>[Required] This AddOn Requires my "Usage Requirements" AddOn as well, install that AddOn first.</li>
+<li>[Required] Also remember to do the required core changes for "Usage Requirements" first.</li>
+<li>[Required] Now do the core changes for "Prestige Classes" AddOn, as stated above.</li>
+<li>[Required] Move the "Items" folder to your main Resources > Items folder and move the "UCE Prestige Classes" folder to your main resources folder (its a new folder).</li>
+<li>[Required] Check the new section in your item and skill templates, look for "Usage Requirements" and "allowed Prestige Classes" therein.</li>
+<li>[Required] Also check the new section on your skills thats called "learnable prestige classes" and edit it to your liking.</li>
+<li>[Optional] Check this "Items > Resources" folder for an example item that allows a player to acquire a specific prestige class.</li>
+<li>[Optional] Check your player prefabs for the new "Prestige Class" setting to allow your players to start the game with a prestige class already.</li>
+</ol>
+</p>
+
+<hr />
+
+<h3>Videos</h3>
+
+<p><i>none</i></p>
+
+<h3>Additional Information</h3>
+<ol>
+<li>A player can always have just <b>one</b> single prestige class. When acquiring a new one, the old one is replaced.</li>
+<li>It makes sense to reward players with a prestige class item when completing a quest. In addition, the <b>UCE Traits</b> AddOn allows players to choose a prestige class at the beginning of the game.</li>
+<li>The "learnable prestige classes" option on skills limits what classes are allowed to learn/upgrade that skill. It does <b>not</b> affect usage!</i>
+<li>The "usage requirements -> allowed prestigage classes" limits the usage/activation/equip of items and skills. It does <b>not</b> affect learning or acquisition!</li>
+<li>Note that all "interaction requirements" on other AddOns can be limited to a prestige class as well (e.g. you can make prestige class based teleporters)</li>
+</ol>
+
+<h3>Version History</h3>
+<p>
+<ul>
+<li>2019.0: First Release</li>
+<li>2019.1: Spring Cleaning 2019 (updated to uMMORPG 1166+, updated ReadMe, bugfixes)</li>
+</ul>
+</p>
+
+
+<hr />
+<p>(c) Fhiz - for personal and commercial game projects, not for sharing or re-sale</p>
